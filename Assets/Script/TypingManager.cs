@@ -227,6 +227,10 @@ public class TypingManager : MonoBehaviour
             {
                 a = cd.dic[moji[i + 1].ToString()][0][0].ToString();
             }
+            else if(moji[i].ToString() == "ん"　&& i == moji.Length - 1)
+            {
+                a = "nn";
+            }
             else if(i + 1 < moji.Length)
             {
                 //次の文字も含めて辞書から探す
