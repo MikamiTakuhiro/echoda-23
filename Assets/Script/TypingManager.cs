@@ -223,11 +223,15 @@ public class TypingManager : MonoBehaviour
             {
                 a = "SKIP";
             }
+            else if(moji[i].ToString() == "ぁ" || moji[i].ToString() == "ぃ" || moji[i].ToString() == "ぅ" || moji[i].ToString() == "ぇ" || moji[i].ToString() == "ぉ")
+            {
+                a = "SKIP";
+            }
             else if(moji[i].ToString() == "っ" && i + 1 < moji.Length)
             {
                 a = cd.dic[moji[i + 1].ToString()][0][0].ToString();
             }
-            else if(moji[i].ToString() == "ん"　&& i == moji.Length - 1)
+            else if(moji[i].ToString() == "ん" && i == moji.Length - 1)
             {
                 a = "nn";
             }
