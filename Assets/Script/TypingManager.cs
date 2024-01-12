@@ -78,6 +78,8 @@ public class TypingManager : MonoBehaviour
                 //trueにする
                 isCorrect = true;
 
+                AddSmallMoji();
+
                 //正解
                 Correct();
 
@@ -125,6 +127,7 @@ public class TypingManager : MonoBehaviour
                     {
                         string rom = stringList[i];
                         int romNum = _romNumList[_aNum];
+
                         if(Input.GetKeyDown(rom[romNum].ToString()))
                         {
                             _romSliceList[furiCount] = rom;
@@ -160,6 +163,7 @@ public class TypingManager : MonoBehaviour
         }
     }
 
+
     //
     void Setlist()
     {
@@ -171,6 +175,37 @@ public class TypingManager : MonoBehaviour
 
         //string[] _aArray = _answer.text.Split(new char[] {'\r','\n'},System.StringSplitOptions.RemoveEmptyEntries);
         //_aList.AddRange(_aArray);
+    }
+
+    //柔軟な入力をしたときに次の文字が小文字なら小文字を挿入する
+    void AddSmallMoji()
+    {
+        int nextMojiNum = _furiCountList[_aNum] + 1;
+
+        //もし次の文字がなければ処理はしない
+        if(_fString.Length - 1 < nextMojiNum)
+        {
+            return;
+        }
+
+        string nextMoji = _fString[nextMojiNum].ToString();
+        string a = cd.dic[nextMoji][0];
+
+        //もしaの０番目がxでもlでもなければ処理をしない
+        if(a[0] != 'x' && a[0] != 'l')
+        {
+            return;
+        }
+
+        //romsliceListに挿入と表示の反映
+        _romSliceList.Insert(nextMojiNum, a);
+        //SKIPを削除する
+        _romSliceList.RemoveAt(nextMojiNum + 1);
+
+        //変更したリストを再度表示させる
+        ReCreatList(_romSliceList);
+        _aString = string.Join("", GetRomSliceListWithoutSkip());
+
     }
 
     //問題を辞書に合わせて分解
