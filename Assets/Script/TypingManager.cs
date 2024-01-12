@@ -78,7 +78,7 @@ public class TypingManager : MonoBehaviour
                 //trueにする
                 isCorrect = true;
 
-                AddSmallMoji();
+                //AddSmallMoji();
 
                 //正解
                 Correct();
@@ -94,7 +94,7 @@ public class TypingManager : MonoBehaviour
             {
                 //nnにしたい
                 _romSliceList[furiCount - 1] = "nn";
-                _aString = string.Join("", _romSliceList);
+                _aString = string.Join("", GetRomSliceListWithoutSkip());
 
                 ReCreatList(_romSliceList);
 
