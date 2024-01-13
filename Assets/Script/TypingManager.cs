@@ -50,6 +50,15 @@ public class TypingManager : MonoBehaviour
     private List<int> _furiCountList = new List<int>();
     private List<int> _romNumList = new List<int>();
 
+    //間違えた数に応じて画像を切り替える
+    [SerializeField] GameObject default_image;
+    [SerializeField] Sprite second_image;
+    [SerializeField] Sprite third_image;
+    [SerializeField] Sprite fourth_image;
+    [SerializeField] Sprite fifth_image;
+    //SpriteRenderer sr;
+    private int _missCount = 0;
+
     // ゲーム開始時に一度だけ呼び出す
     void Start()
     {
@@ -159,6 +168,7 @@ public class TypingManager : MonoBehaviour
             {
                 //失敗
                 Miss();
+                ImageChange();
             }
         }
     }
@@ -338,6 +348,29 @@ public class TypingManager : MonoBehaviour
         aText.text ="<color=#6A6A6A>" + _aString.Substring(0,_aNum) + "</color>" 
             + "<color=#FF0000>" + _aString.Substring(_aNum, 1) + "</color>" 
             + _aString.Substring(_aNum + 1);
+
+    }
+
+    //画像を切り替える
+    void ImageChange()
+    {   
+        _missCount++;
+        if(_missCount == 2)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = second_image;
+        }
+        else if(_missCount == 4)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = third_image;
+        }
+        else if(_missCount == 6)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = fourth_image;
+        }
+        else if(_missCount == 8)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = fifth_image;
+        }
 
     }
 }
