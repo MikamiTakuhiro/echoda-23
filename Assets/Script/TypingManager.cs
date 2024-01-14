@@ -51,19 +51,25 @@ public class TypingManager : MonoBehaviour
     private List<int> _romNumList = new List<int>();
 
     //間違えた数に応じて画像を切り替える
+    //森
     [SerializeField] GameObject default_image;
     [SerializeField] Sprite second_image;
     [SerializeField] Sprite third_image;
     [SerializeField] Sprite fourth_image;
     [SerializeField] Sprite fifth_image;
+    //川
+    [SerializeField] GameObject defaultriver_image;
+    [SerializeField] GameObject moveriver_image;
+    [SerializeField] Sprite secondriver_image;
+    [SerializeField] Sprite thirdriver_image;
+    [SerializeField] Sprite fourthriver_image;
+    [SerializeField] Sprite fifthriver_image;
+
     public int _missCount = 0;
 
     //Scrollクラスのインスタンスを作成
     [SerializeField] Scroll scroll;
     //[SerializeField] Scroll scroll2;
-    
-    //川を切り替えるためのフラグ
-    //public bool riverFlag;
 
     // ゲーム開始時に一度だけ呼び出す
     void Start()
@@ -377,18 +383,26 @@ public class TypingManager : MonoBehaviour
         if(_missCount == 2)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = second_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
         }
         else if(_missCount == 4)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = third_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
         }
         else if(_missCount == 6)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = fourth_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
         }
         else if(_missCount == 8)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = fifth_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
         }
 
     }
