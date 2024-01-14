@@ -32,13 +32,13 @@ public class TypingManager : MonoBehaviour
     //何番目かを指定するためのString
     private string _fString;
     private string _qString;
-    private string _aString;
+    public string _aString;
 
     //何番目の問題か
     private int _qNum;
 
     //問題の何文字目か
-    private int _aNum;
+    public int _aNum;
 
     //合っているかどうかの判断
     bool isCorrect;
@@ -56,8 +56,14 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Sprite third_image;
     [SerializeField] Sprite fourth_image;
     [SerializeField] Sprite fifth_image;
-    //SpriteRenderer sr;
-    private int _missCount = 0;
+    public int _missCount = 0;
+
+    //Scrollクラスのインスタンスを作成
+    [SerializeField] Scroll scroll;
+    //[SerializeField] Scroll scroll2;
+    
+    //川を切り替えるためのフラグ
+    //public bool riverFlag;
 
     // ゲーム開始時に一度だけ呼び出す
     void Start()
@@ -75,11 +81,19 @@ public class TypingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        scroll.riverScroll();
+        scroll.riverChange();
+
+        //scroll2.riverScroll();
+        //scroll2.riverChange();
+
         //入力された時に判断
         if(Input.anyKeyDown)
         {
             isCorrect = false;
             int furiCount = _furiCountList[_aNum];
+
+            //rs.riverScroll();
             
             //完全に合っていれば正解
             if(Input.GetKeyDown(_aString[_aNum].ToString()))
@@ -95,6 +109,8 @@ public class TypingManager : MonoBehaviour
                 //最後の文字に正解したら
                 if(_aNum >= _aString.Length)
                 {
+                    scroll.riverChange();
+                    //scroll2.riverChange();
                     //問題を変える
                     OutPut();
                 }
@@ -116,6 +132,7 @@ public class TypingManager : MonoBehaviour
                 //最後の文字に正解したら
                 if(_aNum >= _aString.Length)
                 {
+
                     //問題を変える
                     OutPut();
                 }
@@ -312,8 +329,10 @@ public class TypingManager : MonoBehaviour
     }
 
     //問題を出すための関数
-    void OutPut()
+    public void OutPut()
     {
+        scroll.GomiChange();
+
         //0番目の文字に戻す
         _aNum = 0;
 
@@ -352,7 +371,7 @@ public class TypingManager : MonoBehaviour
     }
 
     //画像を切り替える
-    void ImageChange()
+    public void ImageChange()
     {   
         _missCount++;
         if(_missCount == 2)
