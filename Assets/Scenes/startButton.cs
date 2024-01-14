@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ƒ‰ƒCƒuƒ‰ƒŠ‚Ì’Ç‰Á
+// ï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ì’Ç‰ï¿½
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class startButton : MonoBehaviour
-{	// n‚Ü‚Á‚½‚ÉÀs‚·‚éŠÖ”
+{	// ï¿½nï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éï¿½ï¿½sï¿½ï¿½ï¿½ï¿½Öï¿½
     	void Start () { 
-         /* ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½AStartGameŠÖ”‚ğÀs*/ gameObject.GetComponent<Button>().onClick.AddListener(StartGame);	} /* StartGameŠÖ”*/ void StartGame() { /* GameScene‚ğƒ[ƒh*/ SceneManager.LoadScene("GameScene"); }
+         /* ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½AStartGameï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s*/ gameObject.GetComponent<Button>().onClick.AddListener(StartGame);	} /* StartGameï¿½Öï¿½*/ void StartGame() { /* GameSceneï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h*/ SceneManager.LoadScene("SampleScene"); }
 }
