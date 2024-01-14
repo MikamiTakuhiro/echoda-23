@@ -32,13 +32,13 @@ public class TypingManager : MonoBehaviour
     //何番目かを指定するためのString
     private string _fString;
     private string _qString;
-    private string _aString;
+    public string _aString;
 
     //何番目の問題か
     private int _qNum;
 
     //問題の何文字目か
-    private int _aNum;
+    public int _aNum;
 
     //合っているかどうかの判断
     bool isCorrect;
@@ -49,6 +49,27 @@ public class TypingManager : MonoBehaviour
     private List<string> _romSliceList = new List<string>();
     private List<int> _furiCountList = new List<int>();
     private List<int> _romNumList = new List<int>();
+
+    //間違えた数に応じて画像を切り替える
+    //森
+    [SerializeField] GameObject default_image;
+    [SerializeField] Sprite second_image;
+    [SerializeField] Sprite third_image;
+    [SerializeField] Sprite fourth_image;
+    [SerializeField] Sprite fifth_image;
+    //川
+    [SerializeField] GameObject defaultriver_image;
+    [SerializeField] GameObject moveriver_image;
+    [SerializeField] Sprite secondriver_image;
+    [SerializeField] Sprite thirdriver_image;
+    [SerializeField] Sprite fourthriver_image;
+    [SerializeField] Sprite fifthriver_image;
+
+    public int _missCount = 0;
+
+    //Scrollクラスのインスタンスを作成
+    [SerializeField] Scroll scroll;
+    //[SerializeField] Scroll scroll2;
 
     // ゲーム開始時に一度だけ呼び出す
     void Start()
@@ -66,11 +87,19 @@ public class TypingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        scroll.riverScroll();
+        scroll.riverChange();
+
+        //scroll2.riverScroll();
+        //scroll2.riverChange();
+
         //入力された時に判断
         if(Input.anyKeyDown)
         {
             isCorrect = false;
             int furiCount = _furiCountList[_aNum];
+
+            //rs.riverScroll();
             
             //完全に合っていれば正解
             if(Input.GetKeyDown(_aString[_aNum].ToString()))
@@ -86,6 +115,8 @@ public class TypingManager : MonoBehaviour
                 //最後の文字に正解したら
                 if(_aNum >= _aString.Length)
                 {
+                    scroll.riverChange();
+                    //scroll2.riverChange();
                     //問題を変える
                     OutPut();
                 }
@@ -107,6 +138,7 @@ public class TypingManager : MonoBehaviour
                 //最後の文字に正解したら
                 if(_aNum >= _aString.Length)
                 {
+
                     //問題を変える
                     OutPut();
                 }
@@ -159,6 +191,7 @@ public class TypingManager : MonoBehaviour
             {
                 //失敗
                 Miss();
+                ImageChange();
             }
         }
     }
@@ -302,8 +335,10 @@ public class TypingManager : MonoBehaviour
     }
 
     //問題を出すための関数
-    void OutPut()
+    public void OutPut()
     {
+        scroll.GomiChange();
+
         //0番目の文字に戻す
         _aNum = 0;
 
@@ -338,6 +373,37 @@ public class TypingManager : MonoBehaviour
         aText.text ="<color=#6A6A6A>" + _aString.Substring(0,_aNum) + "</color>" 
             + "<color=#FF0000>" + _aString.Substring(_aNum, 1) + "</color>" 
             + _aString.Substring(_aNum + 1);
+
+    }
+
+    //画像を切り替える
+    public void ImageChange()
+    {   
+        _missCount++;
+        if(_missCount == 2)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = second_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
+        }
+        else if(_missCount == 4)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = third_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
+        }
+        else if(_missCount == 6)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = fourth_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
+        }
+        else if(_missCount == 8)
+        {
+            default_image.GetComponent<SpriteRenderer>().sprite = fifth_image;
+            defaultriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
+            moveriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
+        }
 
     }
 }
