@@ -45,7 +45,7 @@ public class Scroll : MonoBehaviour
         int random = Random.Range(1, texture_list.Count);
         img.texture = texture_list[random];
     }
-    
+
     public void riverScroll()
     {
         //int random = Random.Range(1, texture_list.Count);
@@ -59,6 +59,8 @@ public class Scroll : MonoBehaviour
         //endPosまできたらmovePosに移動
         if(transform.position.x > endPos)
         {
+            typing._score = typing._score - typing._fString.Length - 1;
+        
             typing.ImageChange();
             typing.OutPut();
             transform.position = new Vector3(movePos, transform.position.y, 0);
