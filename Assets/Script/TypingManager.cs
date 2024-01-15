@@ -30,7 +30,7 @@ public class TypingManager : MonoBehaviour
     //private List<string> _aList = new List<string>();
 
     //何番目かを指定するためのString
-    private string _fString;
+    public string _fString;
     private string _qString;
     public string _aString;
 
@@ -64,8 +64,10 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Sprite thirdriver_image;
     [SerializeField] Sprite fourthriver_image;
     [SerializeField] Sprite fifthriver_image;
-
     public int _missCount = 0;
+
+    //スコアを管理
+    public int _score = 0;
 
     //Scrollクラスのインスタンスを作成
     [SerializeField] Scroll scroll;
@@ -356,6 +358,10 @@ public class TypingManager : MonoBehaviour
         fText.text = _fString;
         qText.text = _qString;
         aText.text = _aString;
+
+        //スコアように_fStringの文字数を取得
+        _score = _score + _fString.Length;
+        Debug.Log(_score);
     }
 
     //正解用の関数
@@ -404,6 +410,8 @@ public class TypingManager : MonoBehaviour
             defaultriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
             moveriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
         }
+
+        
 
     }
 }
