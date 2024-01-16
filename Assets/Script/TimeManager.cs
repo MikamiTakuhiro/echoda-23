@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class TimeManager : MonoBehaviour
 
         if(countdownSeconds <= 0)
         {
-            Debug.Log("時間切れ！！");
+            SceneManager.LoadScene("Score"); 
         }
     }
 }
