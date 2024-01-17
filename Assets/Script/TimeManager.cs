@@ -11,6 +11,9 @@ public class TimeManager : MonoBehaviour
     private float countdownSeconds;
     private Text timeText;
 
+    public static int _resultscore =0;
+    [SerializeField] TypingManager typingM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,7 @@ public class TimeManager : MonoBehaviour
 
         if(countdownSeconds <= 0)
         {
+            _resultscore = typingM._score;
             SceneManager.LoadScene("Score"); 
         }
     }

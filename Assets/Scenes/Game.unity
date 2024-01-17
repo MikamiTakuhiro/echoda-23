@@ -577,6 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownMinutes: 1
+  typingM: {fileID: 2024215706}
 --- !u!114 &888132109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1272,3 +1273,4 @@ SceneRoots:
   - {fileID: 2024215707}
   - {fileID: 1962520027}
   - {fileID: 479174466}
+  - {fileID: 728752975}
