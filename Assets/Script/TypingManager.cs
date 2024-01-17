@@ -73,10 +73,15 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Scroll scroll;
     //[SerializeField] Scroll scroll2;
 
+    //ミスした時に効果音を鳴らす
+    public AudioClip misssound;
+    AudioSource audioSource;
+
     // ゲーム開始時に一度だけ呼び出す
     void Start()
     {
         cd = GetComponent<ChangeDictionary>();
+        audioSource = GetComponent<AudioSource>();
 
         //テキストデータをリストに入れる
         Setlist();
@@ -375,6 +380,8 @@ public class TypingManager : MonoBehaviour
     //間違え用の関数
     void Miss()
     {
+        //効果音を鳴らす
+        audioSource.PlayOneShot(misssound);
         //間違えた時の処理
         aText.text ="<color=#6A6A6A>" + _aString.Substring(0,_aNum) + "</color>" 
             + "<color=#FF0000>" + _aString.Substring(_aNum, 1) + "</color>" 
