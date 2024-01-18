@@ -11,7 +11,9 @@ public class TimeManager : MonoBehaviour
     private float countdownSeconds;
     private Text timeText;
 
-    public static int _resultscore =0;
+    public static int _resultscore = 0;
+    public static int _missnumber = 0;
+    public static List<string> misswords = new List<string>();
     [SerializeField] TypingManager typingM;
 
     // Start is called before the first frame update
@@ -31,6 +33,8 @@ public class TimeManager : MonoBehaviour
         if(countdownSeconds <= 0)
         {
             _resultscore = typingM._score;
+            _missnumber = typingM._missCount;
+            misswords.AddRange(typingM._missList);
             SceneManager.LoadScene("Score"); 
         }
     }

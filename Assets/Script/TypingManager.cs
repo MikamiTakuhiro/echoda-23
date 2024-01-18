@@ -27,6 +27,7 @@ public class TypingManager : MonoBehaviour
     //テキストデータを格納するためのリスト
     private List<string> _fList = new List<string>();
     private List<string> _qList = new List<string>();
+    public  List<string> _missList = new List<string>();
     //private List<string> _aList = new List<string>();
 
     //何番目かを指定するためのString
@@ -382,6 +383,10 @@ public class TypingManager : MonoBehaviour
     {
         //効果音を鳴らす
         audioSource.PlayOneShot(misssound);
+        _missList.Add(_qString);
+        _missList = _missList.Distinct().ToList();
+        //a++;
+        Debug.Log(string.Join(", ", _missList));
         //間違えた時の処理
         aText.text ="<color=#6A6A6A>" + _aString.Substring(0,_aNum) + "</color>" 
             + "<color=#FF0000>" + _aString.Substring(_aNum, 1) + "</color>" 
