@@ -27,6 +27,7 @@ public class TypingManager : MonoBehaviour
     //テキストデータを格納するためのリスト
     private List<string> _fList = new List<string>();
     private List<string> _qList = new List<string>();
+    public  List<string> _missList = new List<string>();
     //private List<string> _aList = new List<string>();
 
     //何番目かを指定するためのString
@@ -73,10 +74,15 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Scroll scroll;
     //[SerializeField] Scroll scroll2;
 
+    //ミスした時に効果音を鳴らす
+    public AudioClip misssound;
+    AudioSource audioSource;
+
     // ゲーム開始時に一度だけ呼び出す
     void Start()
     {
         cd = GetComponent<ChangeDictionary>();
+        audioSource = GetComponent<AudioSource>();
 
         //テキストデータをリストに入れる
         Setlist();
@@ -375,6 +381,11 @@ public class TypingManager : MonoBehaviour
     //間違え用の関数
     void Miss()
     {
+        //効果音を鳴らす
+        audioSource.PlayOneShot(misssound);
+        _missList.Add(_qString);
+        _missList = _missList.Distinct().ToList();
+        Debug.Log(string.Join(", ", _missList));
         //間違えた時の処理
         aText.text ="<color=#6A6A6A>" + _aString.Substring(0,_aNum) + "</color>" 
             + "<color=#FF0000>" + _aString.Substring(_aNum, 1) + "</color>" 
@@ -386,25 +397,25 @@ public class TypingManager : MonoBehaviour
     public void ImageChange()
     {   
         _missCount++;
-        if(_missCount == 2)
+        if(_missCount == 4)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = second_image;
             defaultriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
             moveriver_image.GetComponent<SpriteRenderer>().sprite = secondriver_image;
         }
-        else if(_missCount == 4)
+        else if(_missCount == 8)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = third_image;
             defaultriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
             moveriver_image.GetComponent<SpriteRenderer>().sprite = thirdriver_image;
         }
-        else if(_missCount == 6)
+        else if(_missCount == 12)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = fourth_image;
             defaultriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
             moveriver_image.GetComponent<SpriteRenderer>().sprite = fourthriver_image;
         }
-        else if(_missCount == 8)
+        else if(_missCount == 16)
         {
             default_image.GetComponent<SpriteRenderer>().sprite = fifth_image;
             defaultriver_image.GetComponent<SpriteRenderer>().sprite = fifthriver_image;
