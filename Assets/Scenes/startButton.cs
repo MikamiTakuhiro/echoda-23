@@ -8,7 +8,8 @@ public class startButton : MonoBehaviour
 {	// �n�܂������Ɏ��s����֐�
     	void Start () 
      { 
-         /* �{�^���������ꂽ���AStartGame�֐������s*/ gameObject.GetComponent<Button>().onClick.AddListener(StartGame);	
+         /* �{�^���������ꂽ���AStartGame�֐������s*/ 
+         gameObject.GetComponent<Button>().onClick.AddListener(StartGame);	
      } 
      /* StartGame�֐�*/ 
      void StartGame() 
