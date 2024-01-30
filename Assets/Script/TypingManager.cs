@@ -115,8 +115,6 @@ public class TypingManager : MonoBehaviour
                 //trueにする
                 isCorrect = true;
 
-                //AddSmallMoji();
-
                 //正解
                 Correct();
 
@@ -158,38 +156,17 @@ public class TypingManager : MonoBehaviour
                 //int furiCount = _furiCountList[_aNum];
                 string currentFuri = _fString[furiCount].ToString();
 
-                if(cd.dic.ContainsKey(currentFuri))
+                if(furiCount < _fString.Length - 1)
                 {
-                    List<string> stringList = cd.dic[currentFuri];
+                    //２文字を考慮した候補検索
+                    string addNextMoji = _fString[furiCount].ToString() + _fString[furiCount + 1].ToString();
+                    CheckIrregularType(addNextMoji, furiCount,false);
+                }
 
-                
-                    for(int i = 0; i < stringList.Count; i++)
-                    {
-                        string rom = stringList[i];
-                        int romNum = _romNumList[_aNum];
-
-                        if(Input.GetKeyDown(rom[romNum].ToString()))
-                        {
-                            _romSliceList[furiCount] = rom;
-                            _aString = string.Join("", GetRomSliceListWithoutSkip());
-
-                            ReCreatList(_romSliceList);
-
-                            //trueにする
-                            isCorrect = true;
-
-                            //正解
-                            Correct();
-
-                            //最後の文字に正解したら
-                            if(_aNum >= _aString.Length)
-                            {
-                                //問題を変える
-                                OutPut();
-                            }
-                            break;
-                        }
-                    }
+                if(!isCorrect)
+                {
+                    string moji = _fString[furiCount].ToString();
+                    CheckIrregularType(moji, furiCount, true);
                 }
                 
             }
@@ -203,6 +180,60 @@ public class TypingManager : MonoBehaviour
             }
         }
     }
+
+    void CheckIrregularType(string currentFuri, int furiCount, bool addSmallMoji)
+    {
+        if(cd.dic.ContainsKey(currentFuri))
+            {
+                List<string> stringList = cd.dic[currentFuri];
+
+                
+                for(int i = 0; i < stringList.Count; i++)
+                {
+                    string rom = stringList[i];
+                    int romNum = _romNumList[_aNum];
+
+                    bool preCheck = true;
+
+                    for(int j = 0; j < romNum; j++)
+                    {
+                        if(rom[i] != _romSliceList[furiCount][j])
+                        {
+                            preCheck = false;
+                        }
+                    }
+
+                    if(preCheck && Input.GetKeyDown(rom[romNum].ToString()))
+                    {
+                        _romSliceList[furiCount] = rom;
+                        _aString = string.Join("", GetRomSliceListWithoutSkip());
+
+                        ReCreatList(_romSliceList);
+
+                        //trueにする
+                        isCorrect = true;
+
+                        if(addSmallMoji)
+                        {
+                            AddSmallMoji();
+                        }
+
+                        //正解
+                        Correct();
+
+                        //最後の文字に正解したら
+                        if(_aNum >= _aString.Length)
+                        {
+                            //問題を変える
+                            OutPut();
+                        }
+                        break;
+                    }
+                }
+            }
+    }
+
+
 
 
     //
